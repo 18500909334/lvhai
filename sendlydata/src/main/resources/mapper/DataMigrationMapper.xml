@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucap.zfw.mapper.DataMigrationMapper">
+     <resultMap id="BaseResultMap" type="com.ucap.zfw.entity.DataMigration">
+        <result column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+      </resultMap>
+   <select id="queryDataList" resultMap="BaseResultMap" >
+
+        SELECT id,type,title FROM DB2INST1."A_CONTENT"
+        <!-- <if test="startTime!=null and startTime!='' ">
+            and t.createtime &gt; str_to_date(#{startTime}, '%Y-%m-%d')
+        </if>
+        <if test="endTime!=null and endTime!='' ">
+            and t.createtime &lt; str_to_date(#{endTime}, '%Y-%m-%d')
+        </if> -->
+       
+    </select>
+   <select id="queryManuscriptList" resultType="com.ucap.zfw.entity.Manuscript" >
+        SELECT  * FROM cms_manuscript
+    </select>
+   <select id="getAtachById" resultType="com.ucap.zfw.entity.Atach" parameterType="java.lang.String">
+       SELECT ID, FILE_NAME, CONTENT_TYPE, CONTENT
+			FROM DB2INST1.A_CONTENT_ATTR_PART  where d=#{id, jdbcType=VARCHAR}
+    </select>
+</mapper>
